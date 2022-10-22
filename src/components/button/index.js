@@ -14,12 +14,15 @@ export const ButtonDefault = (props) => {
 }
 
 const Button = styled.button`
-  background-color: #6B94A8;
+  background-color: #717171;
   border: none;    
   padding: 10px 20px;
   text-align: center;
-  border-radius: 4px;
+  border-radius: 25px;
   cursor: pointer;
-  height: 40px;          
+  height: 50px; 
+  width: 150px;
+  font-size: 0.9em;
+  font-weight: bold;
 `
 

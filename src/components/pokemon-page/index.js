@@ -4,23 +4,26 @@ import { logoImg } from "../../variables";
 import styled from "styled-components";
 import { ThemeContext } from "../context/theme.context";
 import { ThemeTogglerButton } from "../theme-toggler-button";
-
-
+import PokemonTypeList from "../pokemon-type-list";
+import { Footer } from "../footer/footer";
+import PokemonDetail from "../pokemon-detail";
 
 const PokemonPage = () => {
-
-  const { theme } = useContext(ThemeContext) 
-
-  // const storageTheme = (JSON.stringify(theme))
-  // localStorage.setItem('storageTheme', storageTheme)
+  
+  const { theme } = useContext(ThemeContext)   
   
   return (         
     <Section style={{ color: theme.color, backgroundColor: theme.background }}>
         <Img src={logoImg} alt={'logo'}></Img>
         <ThemeTogglerButton/>  
         <Div>                      
-          <PokemonList />          
-        </Div>     
+          <PokemonList />   
+          <PokemonDetail/>       
+          <PokemonTypeList/>         
+        </Div> 
+        <Div>
+          <Footer/>
+        </Div>    
     </Section>        
   )
 }
@@ -37,7 +40,8 @@ const Div = styled.div`
   display: flex; 
   flex-direction: column; 
   align-itens: center;  
-  
+  gap: 25px;
+  text-align: center;
 `
 
 const Img = styled.img`

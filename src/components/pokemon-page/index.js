@@ -6,7 +6,6 @@ import { ThemeContext } from "../context/theme.context";
 import { ThemeTogglerButton } from "../theme-toggler-button";
 import PokemonTypeList from "../pokemon-type-list";
 import { Footer } from "../footer/footer";
-import PokemonDetail from "../pokemon-detail";
 
 const PokemonPage = () => {
   
@@ -17,8 +16,7 @@ const PokemonPage = () => {
         <Img src={logoImg} alt={'logo'}></Img>
         <ThemeTogglerButton/>  
         <Div>                      
-          <PokemonList />   
-          <PokemonDetail/>       
+          <PokemonList />                
           <PokemonTypeList/>         
         </Div> 
         <Div>

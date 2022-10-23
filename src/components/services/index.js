@@ -11,7 +11,7 @@ export const getPokemons = async (limit=10) => {
 export const getPokemon = async (id) => {
   try {    
     let url = `https://pokeapi.co/api/v2/pokemon/${id}`    
-    const response = fetch(url)
+    const response = fetch(url)     
     return await (await response).json()    
     } catch (error) {
       console.log('Fetch getPokemonData', error)

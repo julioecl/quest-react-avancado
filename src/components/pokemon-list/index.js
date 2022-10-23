@@ -36,7 +36,7 @@ const PokemonList = () => {
         {pokemons.map((pokemon, index) => {
           return (
             <div key={index}>
-              <PokemonCard pokemon={pokemon}></PokemonCard>                   
+              <PokemonCard  pokemon={pokemon}></PokemonCard>                   
             </div>
             )
           })}                   

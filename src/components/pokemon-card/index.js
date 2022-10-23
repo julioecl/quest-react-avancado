@@ -1,29 +1,27 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
+import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { getPokemon, getPokemonData } from "../services";
 
 const PokemonCard = (props) => {    
 
     const { pokemon } = props 
-
-    const onClickHandler = () => {         
-        getPokemon(pokemon.id)                                    
-        return
-    }       
+  
 
     return (    
-        <section>                
-                <A onClick={onClickHandler}>                     
+        <section>
+            <Div>                
+                <Link to={`pokemon/${pokemon.id}`}>                     
                     <Img src={(pokemon.sprites.other["official-artwork"].front_default === null) ?  pokemon.sprites.front_default : pokemon.sprites.other["official-artwork"].front_default} alt={pokemon.name}></Img>                     
                     <h3> {pokemon.name} </h3>                   
-                </A>                             
+                </Link>                             
+            </Div>    
         </section>
     )
 }
 
 export default PokemonCard
 
-const A = styled.a`
+const Div = styled.div`    
     height: 190px;
     width: 190px;
     display: flex;

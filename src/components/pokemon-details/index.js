@@ -7,17 +7,19 @@ import { Footer } from "../footer/footer";
 import { getPokemon } from "../services";
 import { logoImg } from "../../variables";
 
-const PokemonDetail = () => {
+const PokemonDetails = () => {
 
     const { theme } = useContext(ThemeContext)
     const { id } = useParams();
-    const [ pokemon, setPokemon ] = useState([])
+    const [ pokemon, setPokemon ] = useState()
+
+    console.log(pokemon) 
       
     useEffect(() => {
         const fetchPokemon = async () => {
             try {
                 const pokemon = await getPokemon(id)
-                setPokemon(pokemon) 
+                setPokemon(pokemon)
                 return                               
             } catch (error) {
                 console.log('Fetch Pokemons error: ', error)
@@ -69,7 +71,7 @@ const PokemonDetail = () => {
     )
 }
 
-export default PokemonDetail
+export default PokemonDetails
 
 const Section = styled.section`
   display: flex;
@@ -96,7 +98,8 @@ const Div = styled.div`
 `
 
 const Ul = styled.ul`
-  list-style: none;  
+  list-style: none;
+  text-transform: capitalize;  
 `
 
 const Img = styled.img`

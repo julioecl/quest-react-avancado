@@ -4,8 +4,7 @@ import styled from "styled-components";
 
 const PokemonCard = (props) => {    
 
-    const { pokemon } = props 
-  
+    const { pokemon } = props  
 
     return (    
         <section>

@@ -2,13 +2,13 @@ import { createContext, useEffect, useState } from "react";
 
 export const themes = {
   themeLight: {
-    label: "Claro",
+    label: "Light",
     color: "#000000",
     background: "#b0b0b0",
     border: "#000000",
   },
   themeDark: {
-    label: "Escuro",
+    label: "Dark",
     color: "#ffffff",
     background: "#484848",
     border: "#ffffff",
@@ -29,12 +29,12 @@ export const ThemeProvider = (props) => {
     }
 
     if (storageTheme) {
-      if (storageTheme.label === "Claro") {
+      if (storageTheme.label === "Light") {
         localStorage.setItem("themes", JSON.stringify(themes.themeLight));
         setTheme(themes.themeLight);
       }
 
-      if (storageTheme.label === "Escuro") {
+      if (storageTheme.label === "Dark") {
         localStorage.setItem("themes", JSON.stringify(themes.themeDark));
         setTheme(themes.themeDark);
       }

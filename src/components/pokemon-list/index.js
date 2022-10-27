@@ -2,7 +2,10 @@ import React, { useEffect, useState } from "react"
 import PokemonCard from "../pokemon-card"
 import styled from "styled-components";
 import { ButtonDefault } from "../button";
-import { getPokemonData, getPokemons } from "../services";
+import { getData, getPokemons } from "../services";
+
+
+
 
 const PokemonList = () => {    
   const [ pokemons, setPokemons ] = useState([])  
@@ -12,9 +15,10 @@ const PokemonList = () => {
     try {
       const data = await getPokemons(limit)                      
       const promise = data.results.map(async (pokemon) => {
-        return await getPokemonData(pokemon.url)        
+        return await getData(pokemon.url)        
       })                   
-      const results = await Promise.all(promise)  
+      const results = await Promise.all(promise)
+      console.log(results)  
       setPokemons(results)                         
     } catch (error) {
       console.log('Fetch Pokemons error: ', error)
@@ -42,7 +46,7 @@ const PokemonList = () => {
           })}                   
       </Div>
       <div>
-        <ButtonDefault onClick={onClickHandler}> Carregar mais </ButtonDefault>    
+        <ButtonDefault onClick={onClickHandler}> Load more </ButtonDefault>    
       </div>                    
     </Section>    
   )

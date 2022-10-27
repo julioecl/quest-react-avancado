@@ -3,68 +3,95 @@ import { ButtonDefault } from "../button";
 import styled from "styled-components";
 import { Link, useParams } from "react-router-dom";
 import { ThemeContext } from "../context/theme.context";
-import { Footer } from "../footer/footer";
-import { getPokemon } from "../services";
-import { logoImg } from "../../variables";
+import { Footer } from "../footer";
+import { getPokemon, getData } from "../services";
+import ScrollToTop from "../services/scroll-to-top";
+import { Header } from "../header";
 
 const PokemonDetails = () => {
 
     const { theme } = useContext(ThemeContext)
     const { id } = useParams();
-    const [ pokemon, setPokemon ] = useState()
+    const [ ability, setAbility] = useState({})    
+    const [ pokemon, setPokemon ] = useState({}) 
 
-    console.log(pokemon) 
-      
-    useEffect(() => {
-        const fetchPokemon = async () => {
-            try {
-                const pokemon = await getPokemon(id)
+    useEffect(() => { 
+        const fetchPokemon = async () => {            
+            try {   
+                const pokemon = await getPokemon(id)                
+                const promise = pokemon.abilities.map( (ability) => {
+                    return getData(ability.ability.url)
+                  })                   
+                  const results = await Promise.all(promise)
                 setPokemon(pokemon)
-                return                               
+                setAbility(results)                
             } catch (error) {
                 console.log('Fetch Pokemons error: ', error)
             }
-        }     
-    fetchPokemon()              
-    }, []) 
+        }
+        fetchPokemon()         
+    }, [id])  
+    
 
-    return(
+    return (
         <Section style={{ color: theme.color, backgroundColor: theme.background }}>
-            <LogoImg src={logoImg} alt={'logo'}></LogoImg>            
+            <Header/>           
             <Link to="/"> 
                 <ButtonDefault > Voltar </ButtonDefault>
+            <ScrollToTop/>    
             </Link>
-            <H2> {pokemon.name} </H2>
-            <Img src={(pokemon.sprites.other["official-artwork"].front_default === null) ?  pokemon.sprites.front_default : pokemon.sprites.other["official-artwork"].front_default} alt={pokemon.name}></Img>
-            
+            <DivInfos>
+                <DivInfo>                
+                    <H2> {pokemon.name} </H2>
+                    <H3> Number: #{pokemon.id} </H3>
+                    <H3> Weight: {pokemon.weight/10} kg</H3>
+                    <H3> Height: {pokemon.height/10} m </H3>
+                    <H3> Type(s): </H3> 
+                    <Span>              
+                        {pokemon.types?.map((type, index) => {
+                        if (pokemon.types.length - 1 === index ) {
+                            return (
+                                <Span key={index}> {type.type.name} </Span>
+                            )    
+                        } else {
+                            return (
+                                <Span key={index}> {type.type.name} and </Span>
+                            )
+                        } 
+                    })}
+                    </Span>
+                </DivInfo>
+                <DivInfo>
+                    <Img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`} alt={pokemon.name}></Img>
+                </DivInfo>                
+            </DivInfos>
             <Div>                  
                 <H3> Moves  </H3>
-                <span>                  
-                {pokemon.moves.map((move, index) => {
-                    return (
-                        <span key={index}> {move.move.name}, </span>                          
-                    )
-                })} </span> 
+                <Span>                  
+                {pokemon.moves?.map((move, index) => {
+                    if (pokemon.moves.length === 1) {
+                        return (
+                            <Span key={index}> {move.move.name} </Span>
+                    )} if (pokemon.moves.length - 1 === index) {                        
+                        return (
+                        <Span key={index}> {move.move.name}. </Span>
+                    )}  else {
+                        return (
+                            <Span key={index}> {move.move.name}, </Span>                          
+                        )
+                    }
+                    
+                })} </Span> 
             </Div>
             <Div>       
-                <H3> Abilities  </H3> 
-                {pokemon.abilities.map((ability, index) => {
+                <H3> Abilities </H3>                
+                {/* {ability ? (ability?.map((stat, index) => {                    
                     return (
-                        <Ul key={index}>
-                            {ability.ability.name}: <span> description </span> 
-                        </Ul>
+                        <P key={index}>
+                            {stat.name}: <Span> {stat.effect_entries[1].effect}  </Span> 
+                        </P>
                     )
-                })}             
-            </Div>
-            <Div>                        
-                <H3> Type(s): </H3>
-                <Ul>
-                {pokemon.types.map((type, index) => {
-                    return (
-                        <li key={index}> {type.type.name} </li>
-                    )
-                })}
-                </Ul> 
+                })): ('')}            */}
             </Div>
             <Footer/>
         </Section>
@@ -76,39 +103,65 @@ export default PokemonDetails
 const Section = styled.section`
   display: flex;
   flex-direction: column;
+  margin: auto;
   gap: 25px;    
-  align-items: center;  
+  align-items: center; 
+   
 `
 const H2 = styled.h2`
     text-transform: capitalize;
-    font-size: 3rem;
+    font-size: 2.5em;
     margin-bottom: 15px;
 `
 
 const H3 = styled.h3`    
     margin-bottom: 15px;
+    &&::first-letter {
+        text-transform: uppercase;
+    }    
+`
+const P = styled.p`    
+    margin-bottom: 15px;
+    &&::first-letter {
+        text-transform: uppercase;
+    }    
+`
+const Span = styled.span`    
+    margin-bottom: 15px;
+    &&::first-letter {
+        text-transform: uppercase;
+    }    
+`
+
+const DivInfos = styled.div`
+    display: flex;
+    align-itens: center;
+    margin: auto 15px;
+    flex-wrap: wrap;
+                 
+`
+const DivInfo = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-itens: center;
+    justify-content: center;
+    margin: auto;
+    text-align: center;
+                    
 `
 
 const Div = styled.div`
   display: flex;
-  flex-direction: column;  
-  margin: 15px 40px;    
+  flex-direction: column; 
+  margin: auto 15px;;   
   align-items: center;
-  font-size: 1.1rem;   
-`
-
-const Ul = styled.ul`
-  list-style: none;
-  text-transform: capitalize;  
+  font-size: 1.1em;
+  text-align: justify;
+      
 `
 
 const Img = styled.img`
     margin: 15px;
-    height: 475px;
-    width: 475px;
-`
-
-const LogoImg = styled.img`
-  margin: 20px;
-  width: 250px;
+    height: 375px;
+    width: 375px;
 `

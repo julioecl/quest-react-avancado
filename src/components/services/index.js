@@ -1,7 +1,6 @@
 export const getPokemons = async (limit=10) => {
     try {
-      let url = `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=0/`
-      const response = await fetch(url)
+      const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=0/`)
       return await response.json()
     } catch (error) {
       console.log('Fetch getPokemons', error)
@@ -10,16 +9,25 @@ export const getPokemons = async (limit=10) => {
 
 export const getPokemon = async (id) => {
   try { 
-    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)     
-    return await response.json()    
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
+    return await response.json() 
     } catch (error) {
       console.log('Fetch getPokemonData', error)
     }
 }
 
-export const getPokemonData = async (url) => {
+export const getAbilityDescription = async (ability) => {
+  try { 
+    const response = await fetch(`https://pokeapi.co/api/v2/ability/${ability}`)        
+    return await response.json() 
+    } catch (error) {
+      console.log('Fetch getPokemonData', error)
+    }
+}
+
+export const getData = async (url) => {
     try {
-      const response = await fetch(url)
+      const response = await fetch(url)                 
       return await response.json()    
     } catch (error) {
       console.log('Fetch getPokemonData', error)
@@ -43,5 +51,3 @@ export const getTypesOfPokemonsData = async (type) => {
     console.log('Fetch getPokemonData', error)
   }
 }
-
-

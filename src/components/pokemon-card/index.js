@@ -31,8 +31,13 @@ const Div = styled.div`
     text-transform: capitalize;    
     border-radius: 25px;
     cursor: pointer; 
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 15px 25px, rgba(0, 0, 0, 0.15) 0px 5px 10px;       
+    transition: ease-in-out 0.4s;     
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 15px 25px, rgba(0, 0, 0, 0.15) 0px 5px 10px; 
+    &:hover {        
+        transform: translateY(-10px);
+    }      
 `
+
 const Img = styled.img`
     height: 125px;
     width: 125px;

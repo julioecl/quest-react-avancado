@@ -14,15 +14,20 @@ export const ButtonDefault = (props) => {
 }
 
 const Button = styled.button`
-  background-color: #717171;
+  background-color: #fbe071;
   border: none;    
-  padding: 10px 20px;
+  padding: 10px
   text-align: center;
   border-radius: 25px;
   cursor: pointer;
-  height: 50px; 
-  width: 150px;
-  font-size: 0.9em;
+  height: 35px; 
+  width: 130px;
+  font-size: 1em;
   font-weight: bold;
+  transition: all 0.3s ease-in-out 0s;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.4);
+  &:hover{
+    transform: translateY(-3px);
+  }
 `
 

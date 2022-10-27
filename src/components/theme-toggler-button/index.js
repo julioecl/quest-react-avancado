@@ -12,14 +12,14 @@ export const ThemeTogglerButton = () => {
         setTheme(theme === themes.themeLight ? themes.themeDark : themes.themeLight)
 
         if (storageTheme) {
-            localStorage.setItem('themes', JSON.stringify(storageTheme.label === 'Claro' ? themes.themeDark : themes.themeLight))
+            localStorage.setItem('themes', JSON.stringify(storageTheme.label === 'Light' ? themes.themeDark : themes.themeLight))
         } else {
             localStorage.setItem('themes', JSON.stringify(themes.themeLight))
         }
     }     
     
     return (        
-        <ButtonDefault onClick={() => handleClick()}> Tema {theme.label} </ButtonDefault>        
+        <ButtonDefault onClick={() => handleClick()}> {theme.label} Theme </ButtonDefault>        
     )
 }
 

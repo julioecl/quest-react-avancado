@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react"
 import PokemonCard from "../pokemon-card"
 import styled from "styled-components";
-import { getPokemonData, getTypesOfPokemons, getTypesOfPokemonsData } from "../services";
+import { getData, getTypesOfPokemons, getTypesOfPokemonsData } from "../services";
 import Select from "react-select"
+import { themes } from "../context/theme.context";
 
 
 const PokemonTypeList = () => { 
@@ -15,7 +16,7 @@ const PokemonTypeList = () => {
     try {
       const data = await getTypesOfPokemonsData(type)                         
       const promise = data.pokemon.map(async (pokemon) => {                    
-        return await getPokemonData(pokemon.pokemon.url)        
+        return await getData(pokemon.pokemon.url)        
       })                   
       const results = await Promise.all(promise)
       setPokemons(results)                            
@@ -37,21 +38,35 @@ const PokemonTypeList = () => {
     }
   } 
 
-  useEffect(() => {    
+  useEffect(() => {
+    if (type === 'shadow'|| type === 'unknown')  {
+      alert("There's no Pokémon of this type. Please chooser another type!")
+      return 
+    }    
     fetchPokemons() 
     fetchTypeOfPokemons()           
   }, [type])
 
   const changeSelectOptionHandler = (e) => {
-    setType(e.value)      
-  }
+    setType(e.value) 
+  }  
   
   return (
     <Section>
-      <div>     
-        <h3> Selecione o tipo de pokémon:</h3>
+      <h3> Select a type of Pokémon: </h3>
+      <div> 
         <DivSelect>
-        <Select placeholder={type} onChange={changeSelectOptionHandler} options={types.map((type, index) => ({id: index, value: type, label: type}))}></Select> 
+        <Select placeholder={type} onChange={changeSelectOptionHandler} theme={(theme) => ({
+      ...theme,
+      borderRadius: 3,
+      colors: {
+        ...theme.colors,
+        primary50: "#b0b0b0",
+        primary25: "#b0b0b0",
+        primary: "#979797",        
+      },
+    })}
+        options={types.map((type, index) => ({id: index, value: type, label: type}))}></Select> 
         </DivSelect>
       </div>
       <Div>        
@@ -70,7 +85,7 @@ export default PokemonTypeList
 const Div = styled.div`
   display: flex;  
   flex-wrap: wrap;
-  margin: auto;
+  
   justify-content: center;
   gap: 25px;
 `
@@ -78,10 +93,14 @@ const Section = styled.section`
   display: flex;
   flex-direction: column;
   gap: 25px;    
-  align-items: center; `
-
-const DivSelect = styled.div`
-  color: #000000; 
-  margin-top: 5px;
-  text-transform: capitalize;   
+  align-items: center;  
 `
+
+const DivSelect = styled.div`      
+  text-transform: capitalize;
+  border-style: none; 
+  width: 125px;
+  color: #000000;
+`
+
+ 

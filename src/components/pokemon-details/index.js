@@ -39,7 +39,7 @@ const PokemonDetails = () => {
         <Section style={{ color: theme.color, backgroundColor: theme.background }}>
             <Header/>           
             <Link to="/"> 
-                <ButtonDefault > Voltar </ButtonDefault>
+                <ButtonDefault > Home </ButtonDefault>
             <ScrollToTop/>    
             </Link>
             <DivInfos>
@@ -87,10 +87,10 @@ const PokemonDetails = () => {
             </Div>
             <Div>       
                 <H3> Abilities </H3>                
-                {ability?.map((stat, index) => {                    
+                {ability?.map((stat, index) => {                                      
                     return (
                         <P key={index}>
-                            "{stat.name}": <Span> {stat.effect_entries[1].effect}  </Span> 
+                            "{stat.name}": <Span> {stat.effect_entries[1].effect ? stat.effect_entries[1].effect : ("There's no description of this ability")}  </Span> 
                         </P>
                     )
                 })}

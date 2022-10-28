@@ -4,9 +4,6 @@ import styled from "styled-components";
 import { ButtonDefault } from "../button";
 import { getData, getPokemons } from "../services";
 
-
-
-
 const PokemonList = () => {    
   const [ pokemons, setPokemons ] = useState([])  
   const [ limit, setLimit ] = useState(10) 

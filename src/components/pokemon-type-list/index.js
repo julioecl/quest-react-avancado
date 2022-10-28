@@ -9,30 +9,34 @@ import { themes } from "../context/theme.context";
 const PokemonTypeList = () => { 
   const [ pokemons, setPokemons ] = useState([])  
   const [ types, setTypes ] = useState([])
+  const [ loading, setLoading ] = useState(false)
   const [ type, setType ] = useState(['normal'])  
 
   
   const fetchPokemons = async () => {
     try {
+      setLoading(true)
       const data = await getTypesOfPokemonsData(type)                         
       const promise = data.pokemon.map(async (pokemon) => {                    
         return await getData(pokemon.pokemon.url)        
-      })                   
-      const results = await Promise.all(promise)
-      setPokemons(results)                            
+      })      
+      const results = await Promise.all(promise)       
+      setPokemons(results)      
+      setLoading(false)                            
     } catch (error) {
       console.log('Fetch Pokemons error: ', error)
     }
   } 
 
   const fetchTypeOfPokemons = async () => {
-    try {
+    try {      
       const data = await getTypesOfPokemons() 
       const promise = data.results.map(async (type) => {
         return type.name        
       })                 
       const response = await Promise.all(promise)
-      setTypes(response)                                                
+      setTypes(response)
+                                                      
     } catch (error) {
       console.log('Fetch Pokemons error: ', error)
     }
@@ -42,10 +46,10 @@ const PokemonTypeList = () => {
     if (type === 'shadow'|| type === 'unknown')  {
       alert("There's no Pokémon of this type. Please chooser another type!")
       return 
-    }    
+    } 
     fetchPokemons() 
-    fetchTypeOfPokemons()           
-  }, [type])
+    fetchTypeOfPokemons()
+  }, [type])  
 
   const changeSelectOptionHandler = (e) => {
     setType(e.value) 
@@ -63,18 +67,20 @@ const PokemonTypeList = () => {
         ...theme.colors,
         primary50: "#b0b0b0",
         primary25: "#b0b0b0",
-        primary: "#979797",        
+        primary: "#979797",
+        neutral0: "#fef4d1"        
       },
     })}
         options={types.map((type, index) => ({id: index, value: type, label: type}))}></Select> 
         </DivSelect>
       </div>
-      <Div>        
-        {pokemons.map((pokemon, index) => {
+      <Div>
+        {loading ? (<h3> Loading, hold on kid...</h3>) :        
+        (pokemons.map((pokemon, index) => {
           return (
             <PokemonCard pokemon={pokemon} key={index}></PokemonCard>
             )
-          })}                   
+          }))}                   
       </Div>                       
     </Section>    
   )

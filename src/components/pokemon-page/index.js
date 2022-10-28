@@ -14,7 +14,7 @@ const PokemonPage = () => {
     <Section style={{ color: theme.color, backgroundColor: theme.background }}>         
         <Header/>
         <Div>                      
-          <PokemonList />               
+          <PokemonList />                     
           <PokemonTypeList/>                  
         </Div> 
         <Div>

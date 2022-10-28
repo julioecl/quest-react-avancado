@@ -19,6 +19,7 @@ const Button = styled.button`
   padding: 10px
   text-align: center;
   border-radius: 25px;
+  margin: 15px auto;
   cursor: pointer;
   height: 30px; 
   width: 120px;

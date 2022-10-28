@@ -13,7 +13,7 @@ export const Header = () => {
 }
 
 const Div = styled.div`
-    margin: 50px;
+    margin: 25px 20px;
     gap: 50px;
     display: flex;
     align-items: center;

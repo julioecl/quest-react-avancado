@@ -53,7 +53,7 @@ const PokemonDetails = () => {
                         {pokemon.types?.map((type, index) => {
                         if (pokemon.types.length - 1 === index ) {
                             return (
-                                <Span key={index}> {type.type.name}.</Span>
+                                <Span key={index}> {type.type.name}</Span>
                             )    
                         } else {
                             return (
@@ -90,7 +90,7 @@ const PokemonDetails = () => {
                 {ability?.map((stat, index) => {                                      
                     return (
                         <P key={index}>
-                            "{stat.name}": <Span> {stat.effect_entries[1].effect ? stat.effect_entries[1].effect : ("There's no description of this ability")}  </Span> 
+                            <h4>"{stat.name}" </h4> <Span> Effect: {stat.effect_entries[1].effect ? stat.effect_entries[1].effect : ("There's no description of this ability")}  </Span> 
                         </P>
                     )
                 })}

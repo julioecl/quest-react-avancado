@@ -2,7 +2,7 @@
 
 This project is the last challenge of the DEV QUEST course.
 
-We are supposed to create a page that uses a RESTful API, and get all the data from there. 
+Our goal is to create a page that uses a RESTful API, and gets all the data from there.
 
 # Technologies
 
@@ -32,9 +32,9 @@ The page will reload when you make changes.\
 # Screenshots - Mobile
 
 <div style="display: flex; gap: 15px; flex-direction: column">
-<img src="./src/design/mobiledetailsimg.png" alt="Mobile Infos Image">
-<img src="./src/design/mobiledetailsmoves.png" alt="Mobile Moves">
-<img src="./src/design/mobiledetailsabilities.png" alt="Mobile Abilities">
+<img src="./src/design/mobiledetailsimg.jpg" alt="Mobile Infos Image">
+<img src="./src/design/mobiledetailsmoves.jpg" alt="Mobile Moves">
+<img src="./src/design/mobiledetailsabilities.jpg" alt="Mobile Abilities">
 </div>
 
 # Pokemon API

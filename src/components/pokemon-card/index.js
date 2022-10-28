@@ -21,8 +21,8 @@ const PokemonCard = (props) => {
 export default PokemonCard
 
 const Div = styled.div`    
-    height: 190px;
-    width: 190px;
+    height: 140px;
+    width: 140px;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -31,7 +31,7 @@ const Div = styled.div`
     text-transform: capitalize;    
     border-radius: 25px;
     cursor: pointer; 
-    transition: ease-in-out 0.4s;     
+    transition: ease-in-out 0.3s;     
     box-shadow: rgba(0, 0, 0, 0.25) 0px 15px 25px, rgba(0, 0, 0, 0.15) 0px 5px 10px; 
     &:hover {        
         transform: translateY(-10px);
@@ -39,6 +39,6 @@ const Div = styled.div`
 `
 
 const Img = styled.img`
-    height: 125px;
-    width: 125px;
+    height: 100px;
+    width: 100px;
 `

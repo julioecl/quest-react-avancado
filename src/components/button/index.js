@@ -14,14 +14,14 @@ export const ButtonDefault = (props) => {
 }
 
 const Button = styled.button`
-  background-color: #fbe071;
+  background-color: #feca1b;
   border: none;    
   padding: 10px
   text-align: center;
   border-radius: 25px;
   cursor: pointer;
-  height: 35px; 
-  width: 130px;
+  height: 30px; 
+  width: 120px;
   font-size: 1em;
   font-weight: bold;
   transition: all 0.3s ease-in-out 0s;

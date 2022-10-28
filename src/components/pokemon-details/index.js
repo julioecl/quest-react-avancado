@@ -12,25 +12,27 @@ const PokemonDetails = () => {
 
     const { theme } = useContext(ThemeContext)
     const { id } = useParams();
-    const [ ability, setAbility] = useState({})    
+    const [ ability, setAbility] = useState()    
     const [ pokemon, setPokemon ] = useState({}) 
 
-    useEffect(() => { 
-        const fetchPokemon = async () => {            
-            try {   
-                const pokemon = await getPokemon(id)                
-                const promise = pokemon.abilities.map( (ability) => {
-                    return getData(ability.ability.url)
-                  })                   
-                  const results = await Promise.all(promise)
-                setPokemon(pokemon)
-                setAbility(results)                
-            } catch (error) {
-                console.log('Fetch Pokemons error: ', error)
-            }
+    const fetchPokemon = async () => {            
+        try {   
+            const pokemon = await getPokemon(id)
+            setPokemon(pokemon)                
+            const abilities = pokemon.abilities.map( (ability) => {
+                return getData(ability.ability.url)
+            })                   
+            const results = await Promise.all(abilities)                               
+            setAbility(results)
+            return                
+        } catch (error) {
+            console.log('Fetch Pokemons error: ', error)
         }
+    }
+    
+    useEffect(() => {
         fetchPokemon()         
-    }, [id])  
+    }, [])  
     
 
     return (
@@ -51,7 +53,7 @@ const PokemonDetails = () => {
                         {pokemon.types?.map((type, index) => {
                         if (pokemon.types.length - 1 === index ) {
                             return (
-                                <Span key={index}> {type.type.name} </Span>
+                                <Span key={index}> {type.type.name}.</Span>
                             )    
                         } else {
                             return (
@@ -85,13 +87,13 @@ const PokemonDetails = () => {
             </Div>
             <Div>       
                 <H3> Abilities </H3>                
-                {/* {ability ? (ability?.map((stat, index) => {                    
+                {ability?.map((stat, index) => {                    
                     return (
                         <P key={index}>
-                            {stat.name}: <Span> {stat.effect_entries[1].effect}  </Span> 
+                            "{stat.name}": <Span> {stat.effect_entries[1].effect}  </Span> 
                         </P>
                     )
-                })): ('')}            */}
+                })}
             </Div>
             <Footer/>
         </Section>
@@ -104,13 +106,13 @@ const Section = styled.section`
   display: flex;
   flex-direction: column;
   margin: auto;
-  gap: 25px;    
+  gap: 15px;    
   align-items: center; 
    
 `
 const H2 = styled.h2`
     text-transform: capitalize;
-    font-size: 2.5em;
+    font-size: 2em;
     margin-bottom: 15px;
 `
 
@@ -135,7 +137,7 @@ const Span = styled.span`
 
 const DivInfos = styled.div`
     display: flex;
-    align-itens: center;
+    align-itens: center;    
     margin: auto 15px;
     flex-wrap: wrap;
                  
@@ -153,15 +155,14 @@ const DivInfo = styled.div`
 const Div = styled.div`
   display: flex;
   flex-direction: column; 
-  margin: auto 15px;;   
+  margin: 15px;;   
   align-items: center;
   font-size: 1.1em;
-  text-align: justify;
-      
+  text-align: center;
 `
 
 const Img = styled.img`
     margin: 15px;
-    height: 375px;
-    width: 375px;
+    height: 300px;
+    width: 300px;
 `

@@ -17,8 +17,7 @@ const PokemonList = () => {
       const promise = data.results.map(async (pokemon) => {
         return await getData(pokemon.url)        
       })                   
-      const results = await Promise.all(promise)
-      console.log(results)  
+      const results = await Promise.all(promise)        
       setPokemons(results)                         
     } catch (error) {
       console.log('Fetch Pokemons error: ', error)

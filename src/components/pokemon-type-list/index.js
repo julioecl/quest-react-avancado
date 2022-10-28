@@ -99,7 +99,7 @@ const Section = styled.section`
 const DivSelect = styled.div`      
   text-transform: capitalize;
   border-style: none; 
-  width: 125px;
+  width: 120px;
   color: #000000;
 `
 
